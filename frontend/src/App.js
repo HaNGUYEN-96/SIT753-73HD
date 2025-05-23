@@ -6,18 +6,18 @@ function App() {
   const [text, setText] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:5000/todos").then(res => setTodos(res.data));
+    axios.get("http://34.129.216.188:5000/todos").then(res => setTodos(res.data));
   }, []);
 
   const addTodo = () => {
-    axios.post("http://localhost:5000/todos", { text }).then(res => {
+    axios.post("http://34.129.216.188:5000/todos", { text }).then(res => {
       setTodos([...todos, res.data]);
       setText("");
     });
   };
 
   const deleteTodo = id => {
-    axios.delete(`http://localhost:5000/todos/${id}`).then(() => {
+    axios.delete(`http://34.129.216.188:5000/todos/${id}`).then(() => {
       setTodos(todos.filter(todo => todo._id !== id));
     });
   };
