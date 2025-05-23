@@ -24,7 +24,7 @@ pipeline {
         stage('Run Unit Tests') {
             steps {
                 script {
-                    sh 'docker compose exec backend npm test || true'  // allow fail for demo
+                    sh 'docker compose exec backend npm test'  // allow fail for demo
                 }
             }
         }
