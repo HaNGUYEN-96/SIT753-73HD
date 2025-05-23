@@ -17,10 +17,10 @@ pipeline {
             steps {
                 script {
                     // Clean up old containers if needed
-                    sh 'docker-compose down'
+                    sh 'docker compose down'
 
                     // Build and run containers
-                    sh 'docker-compose up -d --build'
+                    sh 'docker compose up -d --build'
                 }
             }
         }
