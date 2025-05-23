@@ -44,3 +44,5 @@ pipeline {
         }
     }
 }
+
+// Note: Ensure that Docker and Docker Compose are installed on the Jenkins agent.
