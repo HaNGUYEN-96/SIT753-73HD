@@ -8,7 +8,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Pull project code from your Git repo
                 git branch: 'main', url: 'https://github.com/HaNGUYEN-96/SIT753-73HD.git'
             }
         }
@@ -16,10 +15,10 @@ pipeline {
         stage('Build & Deploy Containers') {
             steps {
                 script {
-                    // Clean up old containers if needed
+                    // Bring down old containers
                     sh 'docker compose down'
 
-                    // Build and run containers
+                    // Build and start containers
                     sh 'docker compose up -d --build'
                 }
             }
@@ -28,7 +27,7 @@ pipeline {
         stage('Health Check') {
             steps {
                 script {
-                    // Check if backend is running
+                    // Simple API health check
                     sh 'curl -f http://localhost:5000/todos || exit 1'
                 }
             }
@@ -37,12 +36,11 @@ pipeline {
 
     post {
         success {
-            echo 'Deployment successful!'
+            echo '✅ Deployment successful!'
         }
         failure {
-            echo 'Deployment failed.'
+            echo '❌ Deployment failed.'
         }
     }
 }
-
-// Note: Ensure that Docker and Docker Compose are installed on the Jenkins agent.
+// This Jenkinsfile is designed to automate the deployment of a Dockerized application using Docker Compose.
