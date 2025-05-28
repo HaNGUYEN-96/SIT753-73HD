@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-require('newrelic');
+import axios from "axios"; 
 
 function App() {
   const [todos, setTodos] = useState([]);
