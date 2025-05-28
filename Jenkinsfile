@@ -4,6 +4,7 @@ pipeline {
     environment {
         COMPOSE_PROJECT_NAME = "todoapp"
         API_KEY = credentials('SONAR_TOKEN') // from Jenkins credentials store
+        NEW_RELIC_LICENSE_KEY = credentials('RELIC_TOKEN')
     }
 
     stages {
@@ -54,24 +55,9 @@ pipeline {
             }
         }
 
-        stage('Install New Relic Agent') {
-            steps {
-                sh 'npm install newrelic --save'
-            }
-        }
+        
 
-        stage('Configure New Relic') {
-            steps {
-                script {
-                    sh 'docker build -t relictodo:latest .'
-                    sh '''
-                        docker run -e NEW_RELIC_LICENSE_KEY=3a5abdaff09076c533e058787678a525FFFFNRAL \
-                            -e NEW_RELIC_APP_NAME="753HD" \
-                            relictodo:latest
-                    '''
-                }
-            }
-        }   
+           
 
     }
 

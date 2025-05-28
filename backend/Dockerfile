@@ -3,5 +3,6 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-CMD ["node", "server.js"]
-ENV NEW_RELIC_NO_CONFIG_FILE=true
+COPY newrelic.js ./
+EXPOSE 5000
+CMD ["npm", "start"]
