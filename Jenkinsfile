@@ -63,11 +63,11 @@ pipeline {
         stage('Configure New Relic') {
             steps {
                 script {
-                    sh 'docker build -t RelicTodo:latest .'
+                    sh 'docker build -t relictodo:latest .'
                     sh '''
                         docker run -e NEW_RELIC_LICENSE_KEY=3a5abdaff09076c533e058787678a525FFFFNRAL \
                             -e NEW_RELIC_APP_NAME="753HD" \
-                            RelicTodo:latest
+                            relictodo:latest
                     '''
                 }
             }
