@@ -53,6 +53,13 @@ pipeline {
                 }
             }
         }
+
+        stage('Install New Relic Agent') {
+            steps {
+                sh 'npm install newrelic --save'
+            }
+        }
+
     }
 
     post {
