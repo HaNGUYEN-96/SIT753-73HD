@@ -4,8 +4,8 @@ describe('Always Passing Test', () => {
   });
 });
 
-// describe('Always Failing Test', () => {
-//   test('false is true', () => {
-//     expect(false).toBe(true); // ❌ This will always fail
-//   });
-// });
+describe('Always Failing Test', () => {
+  test('false is true', () => {
+    expect(false).toBe(true); // ❌ This will always fail
+  });
+});
