@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const Todo = require("./models/Todo");
+require('newrelic');
 
 const app = express();
 app.use(cors());
