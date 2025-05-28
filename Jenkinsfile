@@ -49,7 +49,7 @@ pipeline {
         stage('Health Check') {
             steps {
                 script {
-                    sh 'curl -f http://34.129.216.188:5000/todos || exit 1'
+                    sh 'curl -f http://34.129.216.188:3000/todos || exit 1'
                 }
             }
         }
@@ -57,10 +57,11 @@ pipeline {
 
     post {
         success {
-            echo '✅ Deployment successful!'
+            echo 'Deployment successful!'
         }
         failure {
-            echo '❌ Deployment failed.'
+            slackSend channel: '#jenkins753',
+            message: "Find Status of Pipeline:- ${currentBuild.currentResult} ${env.JOB_NAME} ${env.BUILD_NUMBER} ${BUILD_URL}"
         }
     }
 }
