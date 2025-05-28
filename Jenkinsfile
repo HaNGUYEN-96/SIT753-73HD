@@ -14,6 +14,19 @@ pipeline {
             }
         }
 
+        stage('Security Check') {
+            steps {
+                script {
+                    sh 'npm install --package-lock-only' // make sure lock file is fresh
+                    // Run npm audit
+                    sh '''
+                        echo "Running npm audit for vulnerability scanning..."
+                        npm audit --audit-level=high || echo "Security vulnerabilities found!"
+                    '''
+                }
+            }
+        }
+
         stage('Build & Deploy Containers') {
             steps {
                 script {
@@ -23,21 +36,21 @@ pipeline {
             }
         }
 
-        // stage('SonarCloud Analysis') {
-        //     steps {
-        //          withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
-        //             sh '''
-        //                 # Run SonarScanner in a Docker container
-        //                 docker run --rm \
-        //                   -e SONAR_HOST_URL="https://sonarcloud.io" \
-        //                   -e SONAR_TOKEN="${SONAR_TOKEN}" \
-        //                   -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=HaNGUYEN-96_SIT753-73HD -Dsonar.organization=hanguyen-96" \
-        //                   -v "$(pwd):/usr/src" \
-        //                   sonarsource/sonar-scanner-cli:latest
-        //             '''
-        //         }
-        //     }
-        // }
+        stage('SonarCloud Analysis') {
+            steps {
+                 withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
+                    sh '''
+                        # Run SonarScanner in a Docker container
+                        docker run --rm \
+                          -e SONAR_HOST_URL="https://sonarcloud.io" \
+                          -e SONAR_TOKEN="${SONAR_TOKEN}" \
+                          -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=HaNGUYEN-96_SIT753-73HD -Dsonar.organization=hanguyen-96" \
+                          -v "$(pwd):/usr/src" \
+                          sonarsource/sonar-scanner-cli:latest
+                    '''
+                }
+            }
+        }
 
         stage('Run Unit Tests') {
             steps {
