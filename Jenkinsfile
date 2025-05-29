@@ -63,7 +63,7 @@ pipeline {
         stage('Health Check') {
             steps {
                 script {
-                    sh 'curl -f http://34.129.216.188:3000/todos || exit 1'
+                    sh 'curl -f http://34.129.144.130/:3000/todos || exit 1'
                 }
             }
         }
